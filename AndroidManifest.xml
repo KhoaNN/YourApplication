@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.michenux.yourapp"
+    android:versionCode="102"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="11" />
+
+    <application
+        android:icon="@drawable/yourapp_icon"
+        android:label="@string/app_name" >
+        
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".activity.YourAppMainActivity"
+            android:label="@string/app_name" 
+            android:theme="@style/Theme.MyTheme">
+        </activity>
+        
+        <activity
+            android:name=".activity.FriendsActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Holo">
+        </activity>
+               
+        <activity
+            android:name=".activity.MyPreferences"
+            android:label="@string/preferences_label"
+            android:theme="@style/Theme.MyTheme">
+        </activity>
+        
+         <provider
+            android:name=".contentprovider.FriendContentProvider"
+            android:authorities="org.michenux.yourapp.contentprovider.friends" >
+        </provider>
+    </application>
+
+</manifest>
