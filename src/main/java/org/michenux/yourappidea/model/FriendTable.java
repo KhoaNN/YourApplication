@@ -1,4 +1,4 @@
-package org.michenux.yourapp.model;
+package org.michenux.yourappidea.model;
 
 public class FriendTable {
 

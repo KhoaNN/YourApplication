@@ -1,4 +1,4 @@
-package org.michenux.yourapp.activity;
+package org.michenux.yourappidea.activity;
 
 public class RequestCodes {
 

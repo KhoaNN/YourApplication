@@ -1,7 +1,7 @@
-package org.michenux.yourapp.contentprovider;
+package org.michenux.yourappidea.contentprovider;
 
 import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
-import org.michenux.yourapp.model.FriendTable;
+import org.michenux.yourappidea.model.FriendTable;
 
 import roboguice.content.RoboContentProvider;
 import android.content.ContentResolver;

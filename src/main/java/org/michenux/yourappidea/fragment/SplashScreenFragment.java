@@ -1,6 +1,6 @@
-package org.michenux.yourapp.fragment;
+package org.michenux.yourappidea.fragment;
 
-import org.michenux.yourapp.R;
+import org.michenux.yourappidea.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

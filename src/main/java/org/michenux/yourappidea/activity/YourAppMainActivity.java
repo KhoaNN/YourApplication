@@ -1,7 +1,7 @@
-package org.michenux.yourapp.activity;
+package org.michenux.yourappidea.activity;
 
 import org.michenux.android.eula.Eula;
-import org.michenux.yourapp.R;
+import org.michenux.yourappidea.R;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.activity.event.OnResumeEvent;
@@ -32,7 +32,7 @@ public class YourAppMainActivity extends RoboFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Eula.show(this);
+		Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
 	}
 
 	/**

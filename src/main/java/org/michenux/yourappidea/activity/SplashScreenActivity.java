@@ -1,7 +1,7 @@
-package org.michenux.yourapp.activity;
+package org.michenux.yourappidea.activity;
 
 import org.michenux.android.init.AppInit;
-import org.michenux.yourapp.R;
+import org.michenux.yourappidea.R;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.activity.event.OnResumeEvent;

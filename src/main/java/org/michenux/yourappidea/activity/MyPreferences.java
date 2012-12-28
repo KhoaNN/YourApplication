@@ -1,6 +1,6 @@
-package org.michenux.yourapp.activity;
+package org.michenux.yourappidea.activity;
 
-import org.michenux.yourapp.R;
+import org.michenux.yourappidea.R;
 
 import roboguice.activity.RoboPreferenceActivity;
 import android.os.Bundle;

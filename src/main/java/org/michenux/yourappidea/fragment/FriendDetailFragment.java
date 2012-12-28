@@ -1,10 +1,10 @@
-package org.michenux.yourapp.fragment;
+package org.michenux.yourappidea.fragment;
 
 import org.michenux.android.db.utils.CursorUtils;
 import org.michenux.android.resources.ResourceUtils;
-import org.michenux.yourapp.R;
-import org.michenux.yourapp.contentprovider.FriendContentProvider;
-import org.michenux.yourapp.model.FriendTable;
+import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.contentprovider.FriendContentProvider;
+import org.michenux.yourappidea.model.FriendTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,10 +1,10 @@
-package org.michenux.yourapp.activity;
+package org.michenux.yourappidea.activity;
 
 import org.michenux.android.ui.fragment.MasterDetailFragmentHelper;
 import org.michenux.android.ui.fragment.MasterDetailFragments;
-import org.michenux.yourapp.R;
-import org.michenux.yourapp.fragment.FriendDetailFragment;
-import org.michenux.yourapp.fragment.FriendListFragment;
+import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.fragment.FriendDetailFragment;
+import org.michenux.yourappidea.fragment.FriendListFragment;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.activity.event.OnCreateEvent;

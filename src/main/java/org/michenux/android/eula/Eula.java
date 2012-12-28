@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Closeable;
-
-import org.michenux.yourapp.R;
-
 import roboguice.activity.RoboFragmentActivity;
 
 /**
@@ -46,15 +43,15 @@ public class Eula {
 	 *            The Activity to finish if the user rejects the EULA.
 	 * @return Whether the user has agreed already.
 	 */
-	public static boolean show(final RoboFragmentActivity activity) {
+	public static boolean show(final RoboFragmentActivity activity, int title, int acceptLabel, int refuseLabel) {
 		final SharedPreferences preferences = activity.getSharedPreferences(
 				PREFERENCES_EULA, Activity.MODE_PRIVATE);
 		if (!preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false)) {
 			final AlertDialog.Builder builder = new AlertDialog.Builder(
 					activity);
-			builder.setTitle(R.string.eula_title);
+			builder.setTitle(title);
 			builder.setCancelable(true);
-			builder.setPositiveButton(R.string.eula_accept,
+			builder.setPositiveButton(acceptLabel,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							accept(preferences);
@@ -63,7 +60,7 @@ public class Eula {
 							}
 						}
 					});
-			builder.setNegativeButton(R.string.eula_refuse,
+			builder.setNegativeButton(refuseLabel,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							refuse(activity);

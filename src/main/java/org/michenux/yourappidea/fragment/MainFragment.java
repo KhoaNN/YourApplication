@@ -1,8 +1,8 @@
-package org.michenux.yourapp.fragment;
+package org.michenux.yourappidea.fragment;
 
 import org.michenux.android.listener.StartActivityViewListener;
-import org.michenux.yourapp.R;
-import org.michenux.yourapp.activity.FriendsActivity;
+import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.activity.FriendsActivity;
 
 import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
