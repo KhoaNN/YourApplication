@@ -95,7 +95,7 @@
 	</build>
 
 	<properties>
-		<android.sdk.path>E:/dev/android-sdk-windows</android.sdk.path>
+		<android.sdk.path>/opt/sdk-android-r20.0.3/</android.sdk.path>
 	</properties>
 
 </project>
