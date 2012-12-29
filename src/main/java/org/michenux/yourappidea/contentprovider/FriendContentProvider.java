@@ -35,7 +35,7 @@ public class FriendContentProvider extends RoboContentProvider {
 	/**
 	 * 
 	 */
-	private static final String AUTHORITY = "org.michenux.yourapp.contentprovider.friends";
+	private static final String AUTHORITY = "org.michenux.yourappidea.contentprovider.friends";
 
 	/**
 	 * 

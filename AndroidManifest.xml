@@ -50,7 +50,7 @@
         
          <provider
             android:name=".contentprovider.FriendContentProvider"
-            android:authorities="org.michenux.yourapp.contentprovider.friends" >
+            android:authorities="org.michenux.yourappidea.contentprovider.friends" >
         </provider>
     </application>
 
