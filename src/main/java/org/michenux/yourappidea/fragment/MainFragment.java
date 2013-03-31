@@ -1,7 +1,8 @@
 package org.michenux.yourappidea.fragment;
 
-import org.michenux.android.listener.StartActivityViewListener;
+import org.michenux.android.listener.StartActivityOnClickListener;
 import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.activity.AirportActivity;
 import org.michenux.yourappidea.activity.FriendsActivity;
 
 import roboguice.fragment.RoboFragment;
@@ -28,8 +29,10 @@ public class MainFragment extends RoboFragment {
 		View mainView = inflater
 				.inflate(R.layout.main, container, false);
 		Button oButton1 = (Button) mainView.findViewById(R.id.mainmenu_button1);
+		oButton1.setOnClickListener( new StartActivityOnClickListener(this, FriendsActivity.class));
+		
 		Button oButton2 = (Button) mainView.findViewById(R.id.mainmenu_button2);
-		oButton1.setOnClickListener( new StartActivityViewListener(this, FriendsActivity.class));
+		oButton2.setOnClickListener( new StartActivityOnClickListener(this, AirportActivity.class));
 
 		return mainView;
 	}

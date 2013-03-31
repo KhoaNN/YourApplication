@@ -9,7 +9,7 @@ import android.view.View;
  * @author Michenux
  *
  */
-public class StartActivityViewListener implements View.OnClickListener {
+public class StartActivityOnClickListener implements View.OnClickListener {
 
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class StartActivityViewListener implements View.OnClickListener {
 	 * @param context
 	 * @param objectClass
 	 */
-	public StartActivityViewListener(Context context, Class<?> objectClass) {
+	public StartActivityOnClickListener(Context context, Class<?> objectClass) {
 		super();
 		this.context = context ;
 		this.intent = new Intent(this.context, objectClass);
@@ -40,7 +40,7 @@ public class StartActivityViewListener implements View.OnClickListener {
 	 * @param context
 	 * @param objectClass
 	 */
-	public StartActivityViewListener(Fragment frament, Class<?> objectClass) {
+	public StartActivityOnClickListener(Fragment frament, Class<?> objectClass) {
 		super();
 		this.fragment = frament ;
 		this.intent = new Intent(frament.getActivity(), objectClass);
@@ -50,7 +50,7 @@ public class StartActivityViewListener implements View.OnClickListener {
 	 * @param context
 	 * @param intent
 	 */
-	public StartActivityViewListener(Context context, Intent intent) {
+	public StartActivityOnClickListener(Context context, Intent intent) {
 		super();
 		this.context = context ;
 		this.intent = intent;

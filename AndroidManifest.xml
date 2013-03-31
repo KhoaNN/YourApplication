@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.michenux.yourappidea"
-    android:versionCode="103"
-    android:versionName="1.0.3" >
+    android:versionCode="104"
+    android:versionName="1.0.4" >
 
 	<uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +12,7 @@
         android:targetSdkVersion="11" />
 
     <application
-        android:icon="@drawable/yourapp_icon"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         
         <activity
@@ -34,6 +34,12 @@
         
         <activity
             android:name=".activity.FriendsActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Holo">
+        </activity>
+        
+        <activity
+            android:name=".activity.AirportActivity"
             android:label="@string/app_name" 
             android:theme="@android:style/Theme.Holo">
         </activity>
