@@ -1,22 +1,14 @@
 package org.michenux.yourappidea.fragment;
 
 import org.michenux.yourappidea.R;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import roboguice.fragment.RoboFragment;
 
-public class SplashScreenFragment extends RoboFragment {
-
-	/**
-	 * Logger
-	 */
-	private static final Logger log = LoggerFactory
-			.getLogger(SplashScreenFragment.class);
+public class SplashScreenFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

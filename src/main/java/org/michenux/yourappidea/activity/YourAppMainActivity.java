@@ -3,25 +3,22 @@ package org.michenux.yourappidea.activity;
 import org.michenux.android.eula.Eula;
 import org.michenux.yourappidea.R;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.activity.event.OnResumeEvent;
-import roboguice.event.Observes;
-import roboguice.inject.ContentView;
+import com.slidingmenu.lib.SlidingMenu;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
+
 import android.widget.Toast;
 
-@ContentView(R.layout.main_fragment)
-public class YourAppMainActivity extends RoboFragmentActivity {
+public class YourAppMainActivity extends FragmentActivity {
 
 	/**
 	 * (non-Javadoc)
@@ -31,6 +28,17 @@ public class YourAppMainActivity extends RoboFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_fragment);
+		
+		SlidingMenu slidingMenu = new SlidingMenu(this);
+		slidingMenu.setMode(SlidingMenu.LEFT);
+		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
+		slidingMenu.setShadowDrawable(R.drawable.shadow);
+		slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		slidingMenu.setFadeDegree(0.35f);
+		slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+		slidingMenu.setMenu(R.layout.slidingmenu_fragment);
 		
 		Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
 	}
@@ -102,14 +110,6 @@ public class YourAppMainActivity extends RoboFragmentActivity {
 		newFragment.show(getSupportFragmentManager(), "dialog");
 	}
 	
-	/**
-	 * @param event
-	 */
-	public void onResume(@Observes OnResumeEvent event) {
-		Window wind = this.getWindow();
-		wind.addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
-	}
-
 	/**
 	 * @author Michenux
 	 * 

@@ -3,36 +3,23 @@ package org.michenux.yourappidea.activity;
 import org.michenux.android.init.AppInit;
 import org.michenux.yourappidea.R;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.activity.event.OnResumeEvent;
-import roboguice.event.Observes;
-import roboguice.inject.ContentView;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
-
-import com.google.inject.Inject;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * @author Michenux
  *
  */
-@ContentView(R.layout.splashscreen_fragment)
-public class SplashScreenActivity extends RoboFragmentActivity {
+public class SplashScreenActivity extends FragmentActivity {
 
 	/**
 	 * 
 	 */
 	protected MyStateSaver data;
 
-	/**
-	 * 
-	 */
-	@Inject private AppInit appInit ;
-	
 	/**
 	 * {@inheritDoc}
 	 * @see roboguice.activity.RoboFragmentActivity#onCreate(android.os.Bundle)
@@ -41,6 +28,8 @@ public class SplashScreenActivity extends RoboFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.splashscreen_fragment);
+		
 		this.data = (MyStateSaver) getLastCustomNonConfigurationInstance();
 		if (this.data == null) {
 			this.data = new MyStateSaver();
@@ -77,7 +66,7 @@ public class SplashScreenActivity extends RoboFragmentActivity {
 		handler.postDelayed(new Runnable() {
 			public void run() {
 				try {
-					appInit.init(getApplicationContext());
+					AppInit.getInstance().init(getApplicationContext());
 					startNextActivity();
 				} catch( NameNotFoundException e ) {
 					throw new RuntimeException(e);

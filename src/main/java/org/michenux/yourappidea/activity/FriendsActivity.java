@@ -6,29 +6,24 @@ import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.fragment.FriendDetailFragment;
 import org.michenux.yourappidea.fragment.FriendListFragment;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.activity.event.OnCreateEvent;
-import roboguice.activity.event.OnResumeEvent;
-import roboguice.event.Observes;
-import roboguice.inject.ContentView;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.Window;
-import android.view.WindowManager.LayoutParams;
 
 /**
  * @author Michenux
  *
  */
-@ContentView(R.layout.friends_fragment)
-public class FriendsActivity extends RoboFragmentActivity {
+public class FriendsActivity extends FragmentActivity {
 
-	/**
-	 * @param event
-	 */
-	public void onCreate(@Observes OnCreateEvent event) {
-
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.friends_fragment);
+		
 		FragmentManager fm = getSupportFragmentManager();
-
 		MasterDetailFragments currentFragments = MasterDetailFragmentHelper
 				.getCurrentFragments(R.id.friendmain_fragment,
 						R.id.frienddetail_fragment, FriendDetailFragment.class,

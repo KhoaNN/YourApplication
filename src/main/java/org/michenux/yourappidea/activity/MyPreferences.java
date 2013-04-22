@@ -2,10 +2,10 @@ package org.michenux.yourappidea.activity;
 
 import org.michenux.yourappidea.R;
 
-import roboguice.activity.RoboPreferenceActivity;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
-public class MyPreferences extends RoboPreferenceActivity {
+public class MyPreferences extends PreferenceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

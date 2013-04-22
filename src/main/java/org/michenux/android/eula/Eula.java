@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v4.app.FragmentActivity;
 
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Closeable;
-import roboguice.activity.RoboFragmentActivity;
 
 /**
  * Displays an EULA ("End User License Agreement") that the user has to accept
@@ -43,7 +43,7 @@ public class Eula {
 	 *            The Activity to finish if the user rejects the EULA.
 	 * @return Whether the user has agreed already.
 	 */
-	public static boolean show(final RoboFragmentActivity activity, int title, int acceptLabel, int refuseLabel) {
+	public static boolean show(final FragmentActivity activity, int title, int acceptLabel, int refuseLabel) {
 		final SharedPreferences preferences = activity.getSharedPreferences(
 				PREFERENCES_EULA, Activity.MODE_PRIVATE);
 		if (!preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false)) {

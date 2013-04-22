@@ -5,8 +5,8 @@ import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.activity.AirportActivity;
 import org.michenux.yourappidea.activity.FriendsActivity;
 
-import roboguice.fragment.RoboFragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import android.widget.Button;
  * @author Michenux
  *
  */
-public class MainFragment extends RoboFragment {
+public class MainFragment extends Fragment {
 
 	/**
 	 * (non-Javadoc)

@@ -1,8 +1,6 @@
 package org.michenux.yourappidea.adapters;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.model.Flight;

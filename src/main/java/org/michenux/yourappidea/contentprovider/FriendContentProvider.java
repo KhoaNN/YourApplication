@@ -3,7 +3,7 @@ package org.michenux.yourappidea.contentprovider;
 import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
 import org.michenux.yourappidea.model.FriendTable;
 
-import roboguice.content.RoboContentProvider;
+import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -14,13 +14,11 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.inject.Inject;
-
 /**
  * @author Michenux
  * 
  */
-public class FriendContentProvider extends RoboContentProvider {
+public class FriendContentProvider extends ContentProvider {
 
 	/**
 	 * 
@@ -70,20 +68,16 @@ public class FriendContentProvider extends RoboContentProvider {
 		uriMatcher.addURI(AUTHORITY, BASE_PATH, FRIENDS);
 		uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", FRIEND_ID);
 	}
-
 	
-	@Inject private SQLiteDatabaseFactory dbFactory ;
+	@Override
+	public boolean onCreate() {
+		return true;
+	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.content.ContentProvider#delete(android.net.Uri,
-	 * java.lang.String, java.lang.String[])
-	 */
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		int uriType = uriMatcher.match(uri);
-		SQLiteDatabase sqlDB = this.dbFactory.getDatabase();
+		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
 		int rowsDeleted = 0;
 		switch (uriType) {
 		case FRIENDS:
@@ -115,8 +109,8 @@ public class FriendContentProvider extends RoboContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		int uriType = this.uriMatcher.match(uri);
-		SQLiteDatabase sqlDB = this.dbFactory.getDatabase();
+		int uriType = uriMatcher.match(uri);
+		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
 		long id = 0;
 		switch (uriType) {
 		case FRIENDS:
@@ -133,12 +127,12 @@ public class FriendContentProvider extends RoboContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 
-		SQLiteDatabase sqlDB = this.dbFactory.getDatabase();
+		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
 		
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 		queryBuilder.setTables(FriendTable.NAME);
 
-		int uriType = this.uriMatcher.match(uri);
+		int uriType = uriMatcher.match(uri);
 		switch (uriType) {
 		case FRIENDS:
 			break;
@@ -164,8 +158,8 @@ public class FriendContentProvider extends RoboContentProvider {
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		int uriType = this.uriMatcher.match(uri);
-		SQLiteDatabase sqlDB = this.dbFactory.getDatabase();
+		int uriType = uriMatcher.match(uri);
+		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
 		int rowsUpdated = 0;
 		switch (uriType) {
 		case FRIENDS:
@@ -189,5 +183,4 @@ public class FriendContentProvider extends RoboContentProvider {
 		getContext().getContentResolver().notifyChange(uri, null);
 		return rowsUpdated;
 	}
-
 }

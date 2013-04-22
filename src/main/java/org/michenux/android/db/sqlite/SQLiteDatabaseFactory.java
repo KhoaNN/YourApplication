@@ -6,25 +6,35 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.google.inject.Singleton;
-
 /**
  * @author Michenux
  * 
  */
-@Singleton
 public class SQLiteDatabaseFactory {
 
+	/**
+	 * Sqlite database factory
+	 */
+	private static final SQLiteDatabaseFactory instance = new SQLiteDatabaseFactory();
+	
 	/**
 	 * SQLite Open Helper
 	 */
 	private SQLiteDatabaseHelper helper;
 
 	/**
-	 * 
+	 * SQLite Database
 	 */
 	private SQLiteDatabase database ;
 
+	private SQLiteDatabaseFactory() {
+		
+	}
+	
+	public static SQLiteDatabaseFactory getInstance() {
+		return instance ;
+	}
+	
 	/**
 	 * @throws NameNotFoundException
 	 */
