@@ -21,7 +21,7 @@ public class FriendsActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.friends_fragment);
+		setContentView(R.layout.friends);
 		
 		FragmentManager fm = getSupportFragmentManager();
 		MasterDetailFragments currentFragments = MasterDetailFragmentHelper

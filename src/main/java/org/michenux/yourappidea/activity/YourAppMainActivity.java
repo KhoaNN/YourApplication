@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 public class YourAppMainActivity extends FragmentActivity {
 
+	private SlidingMenu slidingMenu ;
+	
 	/**
 	 * (non-Javadoc)
 	 * 
@@ -28,9 +30,9 @@ public class YourAppMainActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_fragment);
+		setContentView(R.layout.main);
 		
-		SlidingMenu slidingMenu = new SlidingMenu(this);
+		slidingMenu = new SlidingMenu(this);
 		slidingMenu.setMode(SlidingMenu.LEFT);
 		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		slidingMenu.setShadowWidthRes(R.dimen.shadow_width);
@@ -38,9 +40,11 @@ public class YourAppMainActivity extends FragmentActivity {
 		slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		slidingMenu.setFadeDegree(0.35f);
 		slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-		slidingMenu.setMenu(R.layout.slidingmenu_fragment);
+		slidingMenu.setMenu(R.layout.slidingmenu);
 		
 		Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	/**
@@ -73,6 +77,9 @@ public class YourAppMainActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.slidingMenu.toggle();
+			return true;
 		case R.id.menuitem_quit:
 			showQuitDialog();
 			return true;

@@ -27,7 +27,7 @@ public class MainFragment extends Fragment {
 			Bundle savedInstanceState) {
 		
 		View mainView = inflater
-				.inflate(R.layout.main, container, false);
+				.inflate(R.layout.main_fragment, container, false);
 		Button oButton1 = (Button) mainView.findViewById(R.id.mainmenu_button1);
 		oButton1.setOnClickListener( new StartActivityOnClickListener(this, FriendsActivity.class));
 		

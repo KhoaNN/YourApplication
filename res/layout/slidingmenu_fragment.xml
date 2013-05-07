@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    android:name="org.michenux.yourappidea.fragment.SlidingMenuFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/slidingmenu">
+<org.michenux.android.ui.sections.SectionListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/section_list_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-</fragment>
+</org.michenux.android.ui.sections.SectionListView>

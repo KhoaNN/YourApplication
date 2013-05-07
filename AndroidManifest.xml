@@ -29,7 +29,7 @@
         <activity
             android:name=".activity.YourAppMainActivity"
             android:label="@string/app_name" 
-            android:theme="@style/Theme.MyTheme">
+            android:theme="@android:style/Theme.Holo">
         </activity>
         
         <activity
@@ -47,7 +47,7 @@
         <activity
             android:name=".activity.MyPreferences"
             android:label="@string/preferences_label"
-            android:theme="@style/Theme.MyTheme">
+            android:theme="@android:style/Theme.Holo">
         </activity>
         
         <activity
