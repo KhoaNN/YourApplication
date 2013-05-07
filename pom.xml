@@ -12,9 +12,9 @@
 
 		<!-- REGULAR DEPENDENCIES -->
 		<dependency>
-			<groupId>com.google.ads</groupId>
+			<groupId>com.google.android.admob</groupId>
 			<artifactId>admob</artifactId>
-			<version>6.2.1</version>
+			<version>6.4.1-r11</version>
 		</dependency>
 
 		<dependency>
