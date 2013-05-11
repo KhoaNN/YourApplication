@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="app_name">Your App Idea</string>
     
@@ -31,6 +31,7 @@
     <string name="eula_title">End User License Agreement</string>
     <string name="eula_accept">Accept</string>
     <string name="eula_refuse">Refuse</string>
+    <string name="eula_close">Close</string>
        
     <string name="airport_title">Arrivals to Paris</string>
     <string name="airport_altitude">Alt: %1$sm</string>

@@ -27,7 +27,7 @@ public class SplashScreenActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.splashscreen);
 		
 		this.data = (MyStateSaver) getLastCustomNonConfigurationInstance();

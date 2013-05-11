@@ -2,6 +2,7 @@
 <org.michenux.android.ui.sections.SectionListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/section_list_view"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/purple_dark">
 
 </org.michenux.android.ui.sections.SectionListView>

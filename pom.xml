@@ -29,15 +29,7 @@
 			<artifactId>spring-android-rest-template</artifactId>
 			<version>1.0.1.RELEASE</version>
 		</dependency>
-
-		<!-- PROVIDED DEPENDENCIES -->
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>4.1.1.4</version>
-			<scope>provided</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
@@ -49,16 +41,23 @@
 			<artifactId>slf4j-android</artifactId>
 			<version>1.6.1-RC1</version>
 		</dependency>
-
-		<!-- <dependency> <groupId>com.slidingmenu</groupId> <artifactId>slidingmenu</artifactId> 
-			<version>1.3-SNAPSHOT</version> <scope>provided</scope> <type>apklib</type> 
-			</dependency> -->
+		
 		<dependency>
 			<groupId>com.slidingmenu</groupId>
 			<artifactId>slidingmenu</artifactId>
 			<version>1.3-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
+		
+		<!-- PROVIDED DEPENDENCIES -->
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>4.1.1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -43,7 +43,8 @@ public class Eula {
 	 *            The Activity to finish if the user rejects the EULA.
 	 * @return Whether the user has agreed already.
 	 */
-	public static boolean show(final FragmentActivity activity, int title, int acceptLabel, int refuseLabel) {
+	public static boolean show(final FragmentActivity activity, int title,
+			int acceptLabel, int refuseLabel) {
 		final SharedPreferences preferences = activity.getSharedPreferences(
 				PREFERENCES_EULA, Activity.MODE_PRIVATE);
 		if (!preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false)) {
@@ -76,6 +77,21 @@ public class Eula {
 			return false;
 		}
 		return true;
+	}
+
+	public static void show(final FragmentActivity activity, int title, int closeLabel) {
+
+		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setTitle(title);
+		builder.setCancelable(true);
+		builder.setNeutralButton(closeLabel,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				});
+		builder.setMessage(readEula(activity));
+		builder.create().show();
 	}
 
 	private static void accept(SharedPreferences preferences) {

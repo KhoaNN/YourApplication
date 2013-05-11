@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.michenux.yourappidea.R;
 
 import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -240,7 +239,6 @@ public class SectionListAdapter extends BaseAdapter implements ListAdapter,
 	@Override
 	public void onItemClick(final AdapterView<?> parent, final View view,
 			final int position, final long id) {
-		Log.d("LMI", "SectionListAdapter: " + position + " - " + id );
 		if (isSection(position)) {
 			sectionClicked(getSectionName(position));
 		} else if (linkedListener != null) {
