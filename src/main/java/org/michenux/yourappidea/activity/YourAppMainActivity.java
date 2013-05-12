@@ -4,15 +4,10 @@ import org.michenux.android.eula.Eula;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.controller.NavigationController;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -43,13 +38,6 @@ public class YourAppMainActivity extends FragmentActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
 	public void onBackPressed() {
 		
 		if ( slidingMenu.isMenuShowing()) {
@@ -61,16 +49,19 @@ public class YourAppMainActivity extends FragmentActivity {
 	}
 
 	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if ( keyCode == KeyEvent.KEYCODE_MENU ) {
+	    	this.slidingMenu.toggle();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			this.slidingMenu.toggle();
-			return true;
-		case R.id.menuitem_quit:
-			NavigationController.getInstance().showExitDialog(this);
-			return true;
-		case R.id.menuitem_preferences:			
-			NavigationController.getInstance().showSettings(this);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -87,35 +78,4 @@ public class YourAppMainActivity extends FragmentActivity {
 
 		}
 	}
-	
-	public static class ConfirmQuitDialog extends DialogFragment {
-
-		public static ConfirmQuitDialog newInstance() {
-			ConfirmQuitDialog frag = new ConfirmQuitDialog();
-			Bundle args = new Bundle();
-			frag.setArguments(args);
-			return frag;
-		}
-
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			return new AlertDialog.Builder(getActivity())
-					.setMessage(R.string.confirm_quit)
-					.setPositiveButton(R.string.yes,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									((YourAppMainActivity) getActivity()).finish();
-								}
-							})
-					.setNegativeButton(R.string.no,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									dialog.cancel();
-								}
-							}).create();
-		}
-	}
-
 }
