@@ -4,12 +4,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/purple_dark">
-
-    <!-- 
-        style="@style/SectionItemStyle" -->
     
     <TextView
-        android:id="@+id/listTextView"
+        android:id="@+id/slidingmenu_section_title"
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -19,10 +16,5 @@
         android:paddingBottom="7dp"
         android:background="@color/purple_dark"
         android:textColor="#FFFFFF"/>
-
-    	<!-- 
-    	?android:attr/listSeparatorTextViewStyle
-    	@style/SectionTextViewStyle
-    	 -->
     
 </LinearLayout>

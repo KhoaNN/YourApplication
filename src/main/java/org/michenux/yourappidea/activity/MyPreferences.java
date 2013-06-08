@@ -3,7 +3,7 @@ package org.michenux.yourappidea.activity;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.fragment.PrefsFragment;
 
-import android.annotation.SuppressLint;
+//import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -22,7 +22,7 @@ public class MyPreferences extends PreferenceActivity {
 
 	}
 
-	@SuppressLint("NewApi")
+	//@SuppressLint("NewApi")
 	public void addLegacyPreferencesFromResource() {
 		addPreferencesFromResource(R.xml.preferences);
 	}

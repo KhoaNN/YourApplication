@@ -1,8 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<org.michenux.android.ui.sections.SectionListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/section_list_view"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/purple_dark">
+    android:layout_height="fill_parent">
 
-</org.michenux.android.ui.sections.SectionListView>
+    <ExpandableListView android:id="@+id/slidingmenu_view"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:transcriptMode="alwaysScroll"
+         android:background="@color/purple_dark"/>
+    
+    <!-- 
+                      android:cacheColorHint="#00000000"
+              -->
+
+</RelativeLayout>
