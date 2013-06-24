@@ -3,71 +3,78 @@ package org.michenux.yourappidea.activity;
 import org.michenux.android.eula.Eula;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.controller.NavigationController;
+import org.michenux.yourappidea.fragment.MainFragment;
+import org.michenux.yourappidea.navdrawer.AbstractNavDrawerActivity;
+import org.michenux.yourappidea.navdrawer.NavDrawerActivityConfiguration;
+import org.michenux.yourappidea.navdrawer.NavDrawerAdapter;
+import org.michenux.yourappidea.navdrawer.NavDrawerItem;
+import org.michenux.yourappidea.navdrawer.NavMenuItem;
+import org.michenux.yourappidea.navdrawer.NavMenuSection;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
-public class YourAppMainActivity extends FragmentActivity {
-
-	private SlidingMenu slidingMenu ;
+public class YourAppMainActivity extends AbstractNavDrawerActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		
-		slidingMenu = new SlidingMenu(this);
-		slidingMenu.setMode(SlidingMenu.LEFT);
-		slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-		slidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
-		slidingMenu.setShadowDrawable(R.drawable.slidingmenu_shadow);
-		slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		slidingMenu.setFadeDegree(0.35f);
-		slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-		slidingMenu.setMenu(R.layout.slidingmenu);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
 		
 		Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
-		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-	}
-
-	@Override
-	public void onBackPressed() {
-		
-		if ( slidingMenu.isMenuShowing()) {
-			slidingMenu.toggle();
-		}
-		else {
-			NavigationController.getInstance().showExitDialog(this);
-		}
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if ( keyCode == KeyEvent.KEYCODE_MENU ) {
-	    	this.slidingMenu.toggle();
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.slidingMenu.toggle();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+	protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
+		
+		NavDrawerItem[] menu = new NavDrawerItem[] {
+				NavMenuSection.create( 100, "Demos"),
+				NavMenuItem.create(101,"List/Detail (Fragment)", "navdrawer_friends", this),
+				NavMenuItem.create(102, "Airport (AsyncTask)", "navdrawer_airport", this), 
+				NavMenuSection.create(200, "General"),
+				NavMenuItem.create(202, "Rate this app", "navdrawer_rating", this),
+				NavMenuItem.create(203, "Eula", "navdrawer_eula", this), 
+				NavMenuItem.create(204, "Quit", "navdrawer_quit", this)};
+		
+		NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
+		navDrawerActivityConfiguration.setMainLayout(R.layout.main);
+		navDrawerActivityConfiguration.setDrawerLayoutId(R.id.drawer_layout);
+		navDrawerActivityConfiguration.setLeftDrawerId(R.id.left_drawer);
+		navDrawerActivityConfiguration.setNavItems(menu);
+		navDrawerActivityConfiguration.setDrawerShadow(R.drawable.drawer_shadow);		
+		navDrawerActivityConfiguration.setDrawerOpenDesc(R.string.drawer_open);
+		navDrawerActivityConfiguration.setDrawerCloseDesc(R.string.drawer_close);
+		navDrawerActivityConfiguration.setBaseAdapter(
+			new NavDrawerAdapter(this, R.layout.navdrawer_item, menu ));
+		return navDrawerActivityConfiguration;
+	}
+	
+	@Override
+	protected void onNavItemSelected(int id) {
+		switch ((int)id) {
+		case 101:
+			NavigationController.getInstance().startFriendsActivity(this);
+			break;
+		case 102:
+			NavigationController.getInstance().startAirportActivity(this);
+			break;
+		case 201:
+			NavigationController.getInstance().showSettings(this);
+			break;
+		case 202:
+			NavigationController.getInstance().startAppRating(this);
+			break;
+		case 203:
+			NavigationController.getInstance().showEula(this);
+			break;
+		case 204:
+			NavigationController.getInstance().showExitDialog(this);
+			break;
 		}
 	}
-
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

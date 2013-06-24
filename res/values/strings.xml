@@ -19,6 +19,9 @@
     
     <string name="error_retrievingdata">Error retrieving data</string>
     
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    
     <!-- For sample -->
     
     <string name="mainmenu_button1">List/Detail (Fragment)</string>
