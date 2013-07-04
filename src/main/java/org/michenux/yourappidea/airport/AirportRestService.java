@@ -1,11 +1,10 @@
-package org.michenux.yourappidea.rest;
+package org.michenux.yourappidea.airport;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.michenux.android.rest.TimestampDeserializer;
-import org.michenux.yourappidea.model.AirportRestResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

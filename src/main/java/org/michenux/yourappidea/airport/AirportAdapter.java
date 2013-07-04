@@ -1,9 +1,8 @@
-package org.michenux.yourappidea.adapters;
+package org.michenux.yourappidea.airport;
 
 import java.util.List;
 
 import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.model.Flight;
 
 import android.content.Context;
 import android.text.format.DateFormat;

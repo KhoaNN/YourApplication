@@ -1,9 +1,7 @@
 package org.michenux.yourappidea.fragment;
 
-import org.michenux.android.listener.StartActivityOnClickListener;
 import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.activity.AirportActivity;
-import org.michenux.yourappidea.activity.FriendsActivity;
+import org.michenux.yourappidea.activity.YourAppMainActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,10 +19,20 @@ public class MainFragment extends Fragment {
 		View mainView = inflater
 				.inflate(R.layout.main_fragment, container, false);
 		Button oButton1 = (Button) mainView.findViewById(R.id.mainmenu_button1);
-		oButton1.setOnClickListener( new StartActivityOnClickListener(this, FriendsActivity.class));
+		oButton1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((YourAppMainActivity)MainFragment.this.getActivity()).selectItem(1);
+			}
+		});
 		
 		Button oButton2 = (Button) mainView.findViewById(R.id.mainmenu_button2);
-		oButton2.setOnClickListener( new StartActivityOnClickListener(this, AirportActivity.class));
+		oButton2.setOnClickListener( new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((YourAppMainActivity)MainFragment.this.getActivity()).selectItem(2);
+			}
+		});
 
 		return mainView;
 	}

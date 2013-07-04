@@ -3,8 +3,6 @@ package org.michenux.yourappidea.controller;
 import org.michenux.android.eula.Eula;
 import org.michenux.android.ui.fragment.dialog.ConfirmDialog;
 import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.activity.AirportActivity;
-import org.michenux.yourappidea.activity.FriendsActivity;
 import org.michenux.yourappidea.activity.MyPreferences;
 import org.michenux.yourappidea.activity.RequestCodes;
 
@@ -24,16 +22,6 @@ public class NavigationController {
 
 	private NavigationController() {
 
-	}
-
-	public void startAirportActivity(Context context) {
-		Intent intent = new Intent(context, AirportActivity.class);
-		context.startActivity(intent);
-	}
-
-	public void startFriendsActivity(Context context) {
-		Intent intent = new Intent(context, FriendsActivity.class);
-		context.startActivity(intent);
 	}
 
 	public void startAppRating(Context context) {

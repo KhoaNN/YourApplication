@@ -2,7 +2,9 @@ package org.michenux.yourappidea.activity;
 
 import org.michenux.android.eula.Eula;
 import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.airport.AirportFragment;
 import org.michenux.yourappidea.controller.NavigationController;
+import org.michenux.yourappidea.fragment.FriendMainFragment;
 import org.michenux.yourappidea.fragment.MainFragment;
 import org.michenux.yourappidea.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.yourappidea.navdrawer.NavDrawerActivityConfiguration;
@@ -21,9 +23,10 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
-		
-		Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
+		if ( savedInstanceState == null ) {
+			getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+			Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
+		}
 	}
 	
 	@Override
@@ -31,12 +34,12 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 		
 		NavDrawerItem[] menu = new NavDrawerItem[] {
 				NavMenuSection.create( 100, "Demos"),
-				NavMenuItem.create(101,"List/Detail (Fragment)", "navdrawer_friends", this),
-				NavMenuItem.create(102, "Airport (AsyncTask)", "navdrawer_airport", this), 
+				NavMenuItem.create(101,"List/Detail (Fragment)", "navdrawer_friends", false, this),
+				NavMenuItem.create(102, "Airport (AsyncTask)", "navdrawer_airport", true, this), 
 				NavMenuSection.create(200, "General"),
-				NavMenuItem.create(202, "Rate this app", "navdrawer_rating", this),
-				NavMenuItem.create(203, "Eula", "navdrawer_eula", this), 
-				NavMenuItem.create(204, "Quit", "navdrawer_quit", this)};
+				NavMenuItem.create(202, "Rate this app", "navdrawer_rating", false, this),
+				NavMenuItem.create(203, "Eula", "navdrawer_eula", false, this), 
+				NavMenuItem.create(204, "Quit", "navdrawer_quit", false, this)};
 		
 		NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
 		navDrawerActivityConfiguration.setMainLayout(R.layout.main);
@@ -55,10 +58,11 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 	protected void onNavItemSelected(int id) {
 		switch ((int)id) {
 		case 101:
-			NavigationController.getInstance().startFriendsActivity(this);
+			getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new FriendMainFragment()).commit();
+			//NavigationController.getInstance().startFriendsActivity(this);
 			break;
 		case 102:
-			NavigationController.getInstance().startAirportActivity(this);
+			getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AirportFragment()).commit();
 			break;
 		case 201:
 			NavigationController.getInstance().showSettings(this);

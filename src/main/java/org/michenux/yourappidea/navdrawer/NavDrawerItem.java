@@ -10,5 +10,5 @@ public interface NavDrawerItem {
 	
 	public boolean isEnabled();
 
-	public boolean updateTitle();
+	public boolean updateActionBarTitle();
 }

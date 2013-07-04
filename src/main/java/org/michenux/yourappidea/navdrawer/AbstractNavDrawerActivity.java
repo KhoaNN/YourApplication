@@ -43,8 +43,6 @@ public abstract class AbstractNavDrawerActivity extends FragmentActivity {
 		
         mTitle = mDrawerTitle = getTitle();
         
-        Log.d("LMI", "init title: " + mTitle );
-        
         mDrawerLayout = (DrawerLayout) findViewById(navConf.getDrawerLayoutId());
         mDrawerList = (ListView) findViewById(navConf.getLeftDrawerId());
         mDrawerList.setAdapter(navConf.getBaseAdapter());
@@ -64,13 +62,11 @@ public abstract class AbstractNavDrawerActivity extends FragmentActivity {
                 ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
-                Log.d("LMI", "onDrawerClosed title: " + mTitle );
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
-                Log.d("LMI", "onDrawerOpened title: " + mTitle );
                 invalidateOptionsMenu();
             }
         };
@@ -147,17 +143,20 @@ public abstract class AbstractNavDrawerActivity extends FragmentActivity {
         }
     }
     
-    protected void selectItem(int position) {
+    public void selectItem(int position) {
     	NavDrawerItem selectedItem = navConf.getNavItems()[position];
     	
     	this.onNavItemSelected(selectedItem.getId());
         mDrawerList.setItemChecked(position, true);
         Log.d("LMI", "selectItem title: " + mTitle );
         
-        if ( selectedItem.updateTitle()) {
+        if ( selectedItem.updateActionBarTitle()) {
         	setTitle(selectedItem.getLabel());
         }
-        mDrawerLayout.closeDrawer(mDrawerList);
+        
+        if ( this.mDrawerLayout.isDrawerOpen(this.mDrawerList)) {
+        	mDrawerLayout.closeDrawer(mDrawerList);
+        }
     }
     
     @Override

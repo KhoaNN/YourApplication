@@ -13,15 +13,18 @@ public class NavMenuItem implements NavDrawerItem {
 	private String label ;
 	
 	private int icon ;
+	
+	private boolean updateActionBarTitle ;
 
 	private NavMenuItem() {
 	}
 
-	public static NavMenuItem create( int id, String label, String icon, Context context ) {
+	public static NavMenuItem create( int id, String label, String icon, boolean updateActionBarTitle, Context context ) {
 		NavMenuItem item = new NavMenuItem();
 		item.setId(id);
 		item.setLabel(label);
 		item.setIcon(ResourceUtils.getDrawableIdByName(icon, context));
+		item.setUpdateActionBarTitle(updateActionBarTitle);
 		return item;
 	}
 	
@@ -60,7 +63,11 @@ public class NavMenuItem implements NavDrawerItem {
 	}
 
 	@Override
-	public boolean updateTitle() {
-		return false;
+	public boolean updateActionBarTitle() {
+		return this.updateActionBarTitle;
+	}
+
+	public void setUpdateActionBarTitle(boolean updateActionBarTitle) {
+		this.updateActionBarTitle = updateActionBarTitle;
 	}
 }

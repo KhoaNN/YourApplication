@@ -1,4 +1,4 @@
-package org.michenux.yourappidea.model;
+package org.michenux.yourappidea.airport;
 
 import java.sql.Timestamp;
 
