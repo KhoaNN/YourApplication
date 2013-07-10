@@ -1,6 +1,5 @@
 package org.michenux.yourappidea.navdrawer;
 
-
 import org.michenux.yourappidea.R;
 
 import android.content.res.Configuration;
@@ -9,7 +8,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -148,7 +146,6 @@ public abstract class AbstractNavDrawerActivity extends FragmentActivity {
     	
     	this.onNavItemSelected(selectedItem.getId());
         mDrawerList.setItemChecked(position, true);
-        Log.d("LMI", "selectItem title: " + mTitle );
         
         if ( selectedItem.updateActionBarTitle()) {
         	setTitle(selectedItem.getLabel());
