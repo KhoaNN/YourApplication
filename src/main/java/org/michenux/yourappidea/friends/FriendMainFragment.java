@@ -1,4 +1,4 @@
-package org.michenux.yourappidea.fragment;
+package org.michenux.yourappidea.friends;
 
 import org.michenux.android.ui.fragment.MasterDetailFragmentHelper;
 import org.michenux.android.ui.fragment.MasterDetailFragments;

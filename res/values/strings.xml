@@ -40,5 +40,5 @@
     <string name="airport_altitude">Alt: %1$sm</string>
     <string name="airport_speed">Speed: %1$skm/h</string>
     <string name="airport_eta">Eta: %1$s</string>
-    <string name="airport_rest_url">http://www.flightradar24.com/AirportInfoService.php?airport={airport}&amp;type={mode}</string>
+    <string name="airport_rest_url">http://www.flightradar24.com/AirportInfoService.php?airport=ORY&amp;type=in</string>
 </resources>

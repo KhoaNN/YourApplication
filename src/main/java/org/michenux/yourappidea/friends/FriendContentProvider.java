@@ -1,7 +1,6 @@
-package org.michenux.yourappidea.contentprovider;
+package org.michenux.yourappidea.friends;
 
 import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
-import org.michenux.yourappidea.model.FriendTable;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -33,7 +32,7 @@ public class FriendContentProvider extends ContentProvider {
 	/**
 	 * 
 	 */
-	private static final String AUTHORITY = "org.michenux.yourappidea.contentprovider.friends";
+	private static final String AUTHORITY = "org.michenux.yourappidea.friends";
 
 	/**
 	 * 

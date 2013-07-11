@@ -1,155 +1,153 @@
 package org.michenux.yourappidea.airport;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.michenux.android.rest.GsonRequest;
 import org.michenux.yourappidea.R;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 //http://www.flightradar24.com/AirportInfoService.php?airport=ORY&type=in
 //LFRS
 public class AirportFragment extends ListFragment {
 
-	private WeakReference<AirportAsyncTask> asyncTaskWeakRef;
-
-	private Menu optionsMenu;
+	private static final Logger log = LoggerFactory.getLogger(AirportFragment.class);
 	
+	private Menu optionsMenu;
+
+	private RequestQueue requestQueue;
+	
+	private boolean requestRunning = false;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		log.info("AirportFragment.onCreate");
 		
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
-		
-		AirportAdapter airportAdapter = new AirportAdapter(this.getActivity(), R.id.flight_name, new ArrayList<Flight>());
+
+		AirportAdapter airportAdapter = new AirportAdapter(this.getActivity(),
+				R.id.flight_name, new ArrayList<Flight>());
 		setListAdapter(airportAdapter);
-		startNewAsyncTask();
+
+		this.requestQueue = Volley.newRequestQueue(this.getActivity());
+		this.startRequest();
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		log.info("AirportFragment.onCreateOptionsMenu");
 		this.optionsMenu = menu;
 		inflater.inflate(R.menu.airport_menu, menu);
-
-		if (isAsyncTaskPendingOrRunning()) {
-			setRefreshActionButtonState(true);
+		if ( this.requestRunning) {
+			this.setRefreshActionButtonState(true);
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
 		case R.id.airport_menuRefresh:
-
-			if (!isAsyncTaskPendingOrRunning()) {
-				this.startNewAsyncTask();
-			}
-
+			this.startRequest();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	private void startNewAsyncTask() {
-		AirportAsyncTask oAsyncTaskArret = new AirportAsyncTask(this);
-		this.asyncTaskWeakRef = new WeakReference<AirportAsyncTask>(oAsyncTaskArret);
-		oAsyncTaskArret.execute();
+
+	private void startRequest() {
+		log.info("AirportFragment.startRequest");
+		if ( !requestRunning ) {
+			AirportFragment.this.requestRunning = true ;
+			GsonRequest<AirportRestResponse> jsObjRequest = new GsonRequest<AirportRestResponse>(
+					Method.GET,
+					getString(R.string.airport_rest_url),
+					AirportRestResponse.class, null,
+					this.createAirportRequestSuccessListener(),
+					this.createAirportRequestErrorListener());
+			jsObjRequest.setShouldCache(false);
+			this.setRefreshActionButtonState(true);
+			this.requestQueue.add(jsObjRequest);
+		}
+		else {
+			log.info("  request is already running");
+		}
 	}
 
-	private boolean isAsyncTaskPendingOrRunning() {
-		return this.asyncTaskWeakRef != null
-				&& this.asyncTaskWeakRef.get() != null
-				&& !this.asyncTaskWeakRef.get().getStatus()
-						.equals(Status.FINISHED);
-	}
-
-	
 	public void setRefreshActionButtonState(final boolean refreshing) {
 		if (optionsMenu != null) {
 			final MenuItem refreshItem = optionsMenu
 					.findItem(R.id.airport_menuRefresh);
 			if (refreshItem != null) {
 				if (refreshing) {
-					refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
+					refreshItem
+							.setActionView(R.layout.actionbar_indeterminate_progress);
 				} else {
 					refreshItem.setActionView(null);
 				}
 			}
 		}
 	}
-	
-	@Override
-	public void onStop() {
-		super.onStop();
-		if ( this.asyncTaskWeakRef.get() != null ) {
-			this.asyncTaskWeakRef.get().cancel(true);
-		}
+
+	private Response.Listener<AirportRestResponse> createAirportRequestSuccessListener() {
+		return new Response.Listener<AirportRestResponse>() {
+			@Override
+			public void onResponse(AirportRestResponse response) {
+				log.info("AirportFragment.onResponse");
+				AirportAdapter adapter = (AirportAdapter) AirportFragment.this
+						.getListAdapter();
+				adapter.clear();
+				Collections.sort(response.getFlights(),
+						new FlightEtaComparator());
+				adapter.addAll(response.getFlights());
+				adapter.notifyDataSetChanged();
+				AirportFragment.this.setRefreshActionButtonState(false);
+				AirportFragment.this.requestRunning = false ;
+			}
+		};
+	}
+
+	private Response.ErrorListener createAirportRequestErrorListener() {
+		return new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				log.info("AirportFragment.onErrorResponse");
+				AirportFragment.this.setRefreshActionButtonState(false);
+				AirportFragment.this.requestRunning = false ;
+				
+				Crouton.makeText(
+					AirportFragment.this.getActivity(),
+					getString(R.string.error_retrievingdata),
+					Style.ALERT).show();
+				
+			}
+		};
 	}
 	
-	private static class AirportAsyncTask extends AsyncTask<String, Void, AirportRestResponse> {
-
-		private WeakReference<AirportFragment> fragmentWeakRef;
-
-		private boolean error = false;
-
-		private AirportAsyncTask(AirportFragment fragment) {
-			this.fragmentWeakRef = new WeakReference<AirportFragment>(fragment);
-		}
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			this.fragmentWeakRef.get().setRefreshActionButtonState(true);
-		}
-
-		@Override
-		protected AirportRestResponse doInBackground(String... params) {
-
-			AirportRestResponse result = null;
-			try {
-				
-				result = AirportRestService.getInstance().getAirportInfo("ORY", AirportRestService.IN_MODE, 
-						this.fragmentWeakRef.get().getString(R.string.airport_rest_url));
-				
-			} catch (Exception e) {
-				Log.e("LMI","Error retrieving data", e);
-				this.error = true;
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(AirportRestResponse airportResponse) {
-			super.onPostExecute(airportResponse);
-
-			if (this.fragmentWeakRef.get() != null) {
-
-				AirportFragment fragment = this.fragmentWeakRef.get();
-				if (!this.error) {
-
-					AirportAdapter adapter = (AirportAdapter) fragment.getListAdapter();
-					adapter.clear();
-					Collections.sort(airportResponse.getFlights(),new FlightEtaComparator());
-					adapter.addAll(airportResponse.getFlights());
-					adapter.notifyDataSetChanged();
-				} else {
-					Toast.makeText(this.fragmentWeakRef.get().getActivity(),
-							fragment.getActivity().getString(R.string.error_retrievingdata),
-							Toast.LENGTH_SHORT).show();
-				}
-				fragment.setRefreshActionButtonState(false);
-			}
-		}
+	@Override
+	public void onDestroy() {
+		log.info("AirportFragment.onDestroy");
+		this.requestQueue.cancelAll(this);
+		Crouton.cancelAllCroutons();
+		super.onDestroy();
 	}
 }
