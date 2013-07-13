@@ -13,7 +13,6 @@ import android.support.v4.app.ListFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
