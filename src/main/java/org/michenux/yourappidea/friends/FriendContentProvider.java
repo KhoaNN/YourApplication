@@ -1,6 +1,9 @@
 package org.michenux.yourappidea.friends;
 
+import javax.inject.Inject;
+
 import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
+import org.michenux.yourappidea.YourApplication;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -68,15 +71,19 @@ public class FriendContentProvider extends ContentProvider {
 		uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", FRIEND_ID);
 	}
 	
+	@Inject SQLiteDatabaseFactory sqliteDatabaseFactory ;
+	
 	@Override
 	public boolean onCreate() {
+		
+		((YourApplication) getContext().getApplicationContext()).inject(this);
 		return true;
 	}
 	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		int uriType = uriMatcher.match(uri);
-		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
+		SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
 		int rowsDeleted = 0;
 		switch (uriType) {
 		case FRIENDS:
@@ -109,7 +116,7 @@ public class FriendContentProvider extends ContentProvider {
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		int uriType = uriMatcher.match(uri);
-		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
+		SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
 		long id = 0;
 		switch (uriType) {
 		case FRIENDS:
@@ -126,7 +133,7 @@ public class FriendContentProvider extends ContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 
-		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
+		SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
 		
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 		queryBuilder.setTables(FriendTable.NAME);
@@ -158,7 +165,7 @@ public class FriendContentProvider extends ContentProvider {
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
 		int uriType = uriMatcher.match(uri);
-		SQLiteDatabase sqlDB = SQLiteDatabaseFactory.getInstance().getDatabase();
+		SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
 		int rowsUpdated = 0;
 		switch (uriType) {
 		case FRIENDS:

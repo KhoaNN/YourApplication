@@ -1,5 +1,8 @@
 package org.michenux.android.db.sqlite;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.michenux.android.info.VersionUtils;
 
 import android.content.Context;
@@ -10,12 +13,8 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Michenux
  * 
  */
+@Singleton
 public class SQLiteDatabaseFactory {
-
-	/**
-	 * Sqlite database factory
-	 */
-	private static final SQLiteDatabaseFactory instance = new SQLiteDatabaseFactory();
 	
 	/**
 	 * SQLite Open Helper
@@ -26,13 +25,9 @@ public class SQLiteDatabaseFactory {
 	 * SQLite Database
 	 */
 	private SQLiteDatabase database ;
-
-	private SQLiteDatabaseFactory() {
-		
-	}
 	
-	public static SQLiteDatabaseFactory getInstance() {
-		return instance ;
+	@Inject public SQLiteDatabaseFactory() {
+		
 	}
 	
 	/**

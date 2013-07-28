@@ -1,5 +1,8 @@
 package org.michenux.yourappidea.controller;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.michenux.android.eula.Eula;
 import org.michenux.android.ui.fragment.dialog.ConfirmDialog;
 import org.michenux.yourappidea.R;
@@ -12,18 +15,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 
+@Singleton
 public class NavigationController {
 
-	public static NavigationController instance = new NavigationController();
-
-	public static NavigationController getInstance() {
-		return instance;
+	@Inject public NavigationController() {
+		
 	}
-
-	private NavigationController() {
-
-	}
-
+	
 	public void startAppRating(Context context) {
 		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 				.parse("market://details?id=" + context.getPackageName())));
@@ -38,7 +36,7 @@ public class NavigationController {
 		Eula.show(activity, R.string.eula_title, R.string.eula_close);
 	}
 
-	public void showExitDialog( final FragmentActivity activity) {
+	public void showExitDialog(final FragmentActivity activity) {
 		ConfirmDialog newFragment = ConfirmDialog.newInstance(
 				R.string.confirm_quit, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -50,10 +48,6 @@ public class NavigationController {
 					}
 				});
 		newFragment.show(activity.getSupportFragmentManager(), "dialog");
-	}
-
-	public void exitApplication() {
-
 	}
 
 	public void showSettings(FragmentActivity activity) {

@@ -23,13 +23,6 @@ public class GsonRequest<T> extends Request<T> {
     private final Map<String, String> headers;
     private final Listener<T> listener;
     
-    /**
-     * Make a GET request and return a parsed object from JSON.
-     *
-     * @param url URL of the request to make
-     * @param clazz Relevant class object, for Gson's reflection
-     * @param headers Map of request headers
-     */
     public GsonRequest(int method, String url, Class<T> clazz, Map<String, String> headers,
             Listener<T> listener, ErrorListener errorListener) {
         super(method, url, errorListener);

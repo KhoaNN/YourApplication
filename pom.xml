@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.michenux</groupId>
 	<artifactId>yourappidea</artifactId>
-	<version>1.0.6</version>
+	<version>1.0.9</version>
 	<packaging>apk</packaging>
 	<name>Your App Idea</name>
 
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r13</version>
+			<version>r18</version>
 		</dependency>
 
 		<dependency>
@@ -37,14 +37,19 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.android</groupId>
-			<artifactId>volley</artifactId>
-			<version>1.0</version>
-			<type>aar</type>
+			<groupId>com.squareup.dagger</groupId>
+			<artifactId>dagger</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.dagger</groupId>
+			<artifactId>dagger-compiler</artifactId>
+			<version>1.0.1</version>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
-			<groupId>de.keyboardsurfer.android.widget</groupId>		    
+			<groupId>de.keyboardsurfer.android.widget</groupId>
 			<artifactId>crouton</artifactId>
 			<version>1.8.1</version>
 			<exclusions>
@@ -78,7 +83,7 @@
 					<assetsDirectory>${project.basedir}/assets</assetsDirectory>
 					<resourceDirectory>${project.basedir}/res</resourceDirectory>
 					<sdk>
-						<platform>15</platform>
+						<platform>18</platform>
 					</sdk>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>

@@ -1,7 +1,10 @@
 package org.michenux.yourappidea.activity;
 
+import javax.inject.Inject;
+
 import org.michenux.android.eula.Eula;
 import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.airport.AirportFragment;
 import org.michenux.yourappidea.controller.NavigationController;
 import org.michenux.yourappidea.fragment.MainFragment;
@@ -19,10 +22,13 @@ import android.widget.Toast;
 
 public class YourAppMainActivity extends AbstractNavDrawerActivity {
 	
+	@Inject NavigationController navController ;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		((YourApplication) getApplication()).inject(this);
+		
 		if ( savedInstanceState == null ) {
 			getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
 			Eula.show(this, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
@@ -34,8 +40,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 		
 		NavDrawerItem[] menu = new NavDrawerItem[] {
 				NavMenuSection.create( 100, "Demos"),
-				NavMenuItem.create(101,"List/Detail (Fragment)", "navdrawer_friends", false, this),
-				NavMenuItem.create(102, "Airport (AsyncTask)", "navdrawer_airport", true, this), 
+				NavMenuItem.create(101,"List/Detail", "navdrawer_friends", true, this),
+				NavMenuItem.create(102, "Airport", "navdrawer_airport", true, this), 
 				NavMenuSection.create(200, "General"),
 				NavMenuItem.create(202, "Rate this app", "navdrawer_rating", false, this),
 				NavMenuItem.create(203, "Eula", "navdrawer_eula", false, this), 
@@ -65,16 +71,16 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 			getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new AirportFragment()).commit();
 			break;
 		case 201:
-			NavigationController.getInstance().showSettings(this);
+			this.navController.showSettings(this);
 			break;
 		case 202:
-			NavigationController.getInstance().startAppRating(this);
+			this.navController.startAppRating(this);
 			break;
 		case 203:
-			NavigationController.getInstance().showEula(this);
+			this.navController.showEula(this);
 			break;
 		case 204:
-			NavigationController.getInstance().showExitDialog(this);
+			this.navController.showExitDialog(this);
 			break;
 		}
 	}

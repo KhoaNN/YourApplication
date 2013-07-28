@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.michenux.android.rest.GsonRequest;
+import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Spinner;
+import android.widget.AdapterView;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -35,6 +40,8 @@ public class AirportFragment extends ListFragment {
 	
 	private boolean requestRunning = false;
 
+	private String currentMode = "in" ;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,7 +50,7 @@ public class AirportFragment extends ListFragment {
 		
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
-
+		
 		AirportAdapter airportAdapter = new AirportAdapter(this.getActivity(),
 				R.id.flight_name, new ArrayList<Flight>());
 		setListAdapter(airportAdapter);
@@ -57,6 +64,38 @@ public class AirportFragment extends ListFragment {
 		log.info("AirportFragment.onCreateOptionsMenu");
 		this.optionsMenu = menu;
 		inflater.inflate(R.menu.airport_menu, menu);
+		
+		MenuItem modeMenuItem =  menu.findItem(R.id.airport_menuMode);
+		Spinner spinner = (Spinner) modeMenuItem.getActionView().findViewById(R.id.airport_mode_spinner);
+		if ( this.currentMode.equals("in")) {
+			spinner.setSelection(0);
+		}
+		else {
+			spinner.setSelection(1);
+		}
+		
+		spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view,
+					int position, long row) {
+				
+				AirportFragment.this.cancelRequests();
+				if ( position == 0 ) {
+					AirportFragment.this.currentMode = "in";
+				}
+				else {
+					AirportFragment.this.currentMode = "out";
+				}
+				AirportFragment.this.startRequest();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				
+			}
+		});
+		
 		if ( this.requestRunning) {
 			this.setRefreshActionButtonState(true);
 		}
@@ -77,9 +116,11 @@ public class AirportFragment extends ListFragment {
 		log.info("AirportFragment.startRequest");
 		if ( !requestRunning ) {
 			AirportFragment.this.requestRunning = true ;
+			
+			String url = getString(R.string.airport_rest_url, this.currentMode);
+			Log.d("TEST", url );
 			GsonRequest<AirportRestResponse> jsObjRequest = new GsonRequest<AirportRestResponse>(
-					Method.GET,
-					getString(R.string.airport_rest_url),
+					Method.GET, url,
 					AirportRestResponse.class, null,
 					this.createAirportRequestSuccessListener(),
 					this.createAirportRequestErrorListener());
@@ -90,6 +131,10 @@ public class AirportFragment extends ListFragment {
 		else {
 			log.info("  request is already running");
 		}
+	}
+	
+	private void cancelRequests() {
+		this.requestQueue.cancelAll(this);
 	}
 
 	public void setRefreshActionButtonState(final boolean refreshing) {
@@ -145,7 +190,7 @@ public class AirportFragment extends ListFragment {
 	@Override
 	public void onDestroy() {
 		log.info("AirportFragment.onDestroy");
-		this.requestQueue.cancelAll(this);
+		this.cancelRequests();
 		Crouton.cancelAllCroutons();
 		super.onDestroy();
 	}
